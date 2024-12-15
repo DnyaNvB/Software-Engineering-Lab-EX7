@@ -9,14 +9,14 @@ import java.util.Stack;
 import MiniJava.Log.Log;
 import MiniJava.codeGenerator.CodeGenerator;
 import MiniJava.errorHandler.ErrorHandler;
-import MiniJava.scanner.lexicalAnalyzer;
+import MiniJava.scanner.ScannerFacade;
 import MiniJava.scanner.token.Token;
 
 public class Parser {
     private ArrayList<Rule> rules;
     private Stack<Integer> parsStack;
     private ParseTable parseTable;
-    private lexicalAnalyzer lexicalAnalyzer;
+    private ScannerFacade scannerFacade;
     private CodeGenerator cg;
 
     public Parser() {
@@ -39,8 +39,8 @@ public class Parser {
     }
 
     public void startParse(java.util.Scanner sc) {
-        lexicalAnalyzer = new lexicalAnalyzer(sc);
-        Token lookAhead = lexicalAnalyzer.getNextToken();
+        scannerFacade = new ScannerFacade(sc);
+        Token lookAhead = scannerFacade.getNextToken();
         boolean finish = false;
         Action currentAction;
         while (!finish) {
@@ -54,7 +54,7 @@ public class Parser {
                 switch (currentAction.action) {
                     case shift:
                         parsStack.push(currentAction.number);
-                        lookAhead = lexicalAnalyzer.getNextToken();
+                        lookAhead = scannerFacade.getNextToken();
 
                         break;
                     case reduce:
@@ -90,7 +90,7 @@ public class Parser {
 //                        tokenFollow.append(String.format("|(?<%s>%s)", t.name(), t.pattern));
 //                        Matcher matcher = Pattern.compile(tokenFollow.substring(1)).matcher(lookAhead.toString());
 //                        while (!matcher.find()) {
-//                            lookAhead = lexicalAnalyzer.getNextToken();
+//                            lookAhead = LexicalAnalyzer.getNextToken();
 //                        }
 //                    }
 //                }
