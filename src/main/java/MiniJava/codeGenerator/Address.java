@@ -6,30 +6,23 @@ package MiniJava.codeGenerator;
 
 public class Address {
     public int num;
-    public TypeAddress Type;
+    public AddressType type;
     public varType varType;
 
-    public Address(int num, varType varType, TypeAddress Type) {
+    public Address(int num, varType varType, AddressType type) {
         this.num = num;
-        this.Type = Type;
+        this.type = type;
         this.varType = varType;
     }
 
     public Address(int num, varType varType) {
         this.num = num;
-        this.Type = TypeAddress.Direct;
+        this.type = new DirectAddress();
         this.varType = varType;
     }
 
+    @Override
     public String toString() {
-        switch (Type) {
-            case Direct:
-                return num + "";
-            case Indirect:
-                return "@" + num;
-            case Imidiate:
-                return "#" + num;
-        }
-        return num + "";
+        return type.format(num);
     }
 }

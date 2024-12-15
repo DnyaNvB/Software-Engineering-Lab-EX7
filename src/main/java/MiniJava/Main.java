@@ -14,7 +14,7 @@ public class Main {
             // start parsing
             parserFacade.parseInput(new Scanner(new File("src/main/resources/code")));
         } catch (FileNotFoundException e) {
-            ErrorHandler.printError("file not found: " + e.getMessage());
+            ErrorHandler.printError("File not found: " + e.getMessage());
         }
     }
 }
