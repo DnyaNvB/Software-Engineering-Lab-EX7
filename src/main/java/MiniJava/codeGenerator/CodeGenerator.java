@@ -297,43 +297,32 @@ public class CodeGenerator {
         memory.add3AddressCode(Operation.ASSIGN, s1, s2, null);
     }
 
-    public void add() {
+
+    public void arithmeticOperation(Operation operation, String errorMessage) {
         memory.increaseTemp();
         Address temp = new Address(memory.getTemp(), varType.Int);
         Address s2 = ss.pop();
         Address s1 = ss.pop();
 
         if (s1.getVarType() != varType.Int || s2.getVarType() != varType.Int) {
-            ErrorHandler.printError("In add two operands must be integer");
+            ErrorHandler.printError(errorMessage);
         }
-        memory.add3AddressCode(Operation.ADD, s1, s2, temp);
+        memory.add3AddressCode(operation, s1, s2, temp);
         ss.push(temp);
+    }
+
+    public void add() {
+        arithmeticOperation(Operation.ADD, "In add two operands must be integer");
     }
 
     public void sub() {
-        memory.increaseTemp();
-        Address temp = new Address(memory.getTemp(), varType.Int);
-        Address s2 = ss.pop();
-        Address s1 = ss.pop();
-        if (s1.getVarType() != varType.Int || s2.getVarType() != varType.Int) {
-            ErrorHandler.printError("In sub two operands must be integer");
-        }
-        memory.add3AddressCode(Operation.SUB, s1, s2, temp);
-        ss.push(temp);
+        arithmeticOperation(Operation.SUB, "In sub two operands must be integer");
     }
 
     public void mult() {
-        memory.increaseTemp();
-        Address temp = new Address(memory.getTemp(), varType.Int);
-        Address s2 = ss.pop();
-        Address s1 = ss.pop();
-        if (s1.getVarType() != varType.Int || s2.getVarType() != varType.Int) {
-            ErrorHandler.printError("In mult two operands must be integer");
-        }
-        memory.add3AddressCode(Operation.MULT, s1, s2, temp);
-//        memory.saveMemory();
-        ss.push(temp);
+        arithmeticOperation(Operation.MULT, "In mult two operands must be integer");
     }
+
 
     public void label() {
         ss.push(new Address(memory.getCurrentCodeBlockAddress(), varType.Address));
