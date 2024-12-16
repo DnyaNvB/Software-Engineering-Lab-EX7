@@ -15,14 +15,13 @@ public class Memory {
     private final int tempSize = 4;
 
     public Memory() {
-        codeBlock = new ArrayList<_3AddressCode>();
+        codeBlock = new ArrayList<>();
         lastTempIndex = stratTempMemoryAddress;
         lastDataAddress = stratDataMemoryAddress;
     }
 
     public void increaseTemp() {
-       lastTempIndex += tempSize;
-
+        lastTempIndex += tempSize;
     }
 
     public int getTemp() {
@@ -43,12 +42,16 @@ public class Memory {
     }
 
     public void add3AddressCode(Operation op, Address opr1, Address opr2, Address opr3) {
-        codeBlock.add(new _3AddressCode(op, opr1, opr2, opr3));
+        add3AddressCodeInternal(codeBlock.size(), op, opr1, opr2, opr3);
     }
 
     public void add3AddressCode(int i, Operation op, Address opr1, Address opr2, Address opr3) {
         codeBlock.remove(i);
-        codeBlock.add(i, new _3AddressCode(op, opr1, opr2, opr3));
+        add3AddressCodeInternal(i, op, opr1, opr2, opr3);
+    }
+
+    private void add3AddressCodeInternal(int index, Operation op, Address opr1, Address opr2, Address opr3) {
+        codeBlock.add(index, new _3AddressCode(op, opr1, opr2, opr3));
     }
 
     public int getCurrentCodeBlockAddress() {
@@ -57,9 +60,21 @@ public class Memory {
 
     public void pintCodeBlock() {
         System.out.println("Code Block");
+        printCodeBlockEntries();
+    }
+
+    private void printCodeBlockEntries() {
         for (int i = 0; i < codeBlock.size(); i++) {
-            System.out.println(i + " : " + codeBlock.get(i).toString());
+            printCodeBlockEntry(i, codeBlock.get(i));
         }
+    }
+
+    private void printCodeBlockEntry(int index, _3AddressCode code) {
+        System.out.println(formatCodeBlockEntry(index, code));
+    }
+
+    private String formatCodeBlockEntry(int index, _3AddressCode code) {
+        return index + " : " + code.toString();
     }
 }
 
@@ -69,9 +84,7 @@ class _3AddressCode {
     public Address Operand2;
     public Address Operand3;
 
-    public _3AddressCode() {
-
-    }
+    public _3AddressCode() {}
 
     public _3AddressCode(Operation op, Address opr1, Address opr2, Address opr3) {
         operation = op;
@@ -80,17 +93,21 @@ class _3AddressCode {
         Operand3 = opr3;
     }
 
+    @Override
     public String toString() {
-        if (operation == null) return "";
-        StringBuffer res = new StringBuffer("(");
-        res.append(operation.toString()).append(",");
-        if (Operand1 != null) res.append(Operand1.toString());
-        res.append(",");
-        if (Operand2 != null) res.append(Operand2.toString());
-        res.append(",");
-        if (Operand3 != null) res.append(Operand3.toString());
-        res.append(")");
-
+        StringBuilder res = new StringBuilder("(");
+        res.append(operationToString()).append(",");
+        res.append(operandToString(Operand1)).append(",");
+        res.append(operandToString(Operand2)).append(",");
+        res.append(operandToString(Operand3)).append(")");
         return res.toString();
+    }
+
+    private String operationToString() {
+        return operation == null ? "" : operation.toString();
+    }
+
+    private String operandToString(Address operand) {
+        return operand == null ? "" : operand.toString();
     }
 }
