@@ -46,6 +46,43 @@ kanban board link: https://github.com/users/DnyaNvB/projects/6
 در این ریفکتورینگ، از روش Parameterize Method استفاده شد تا متدهای تکراری add، sub و mult که منطق مشابهی داشتند، به یک متد عمومی‌تر به نام arithmeticOperation تبدیل شوند. این متد جدید با دریافت نوع عملیات (Operation) و پیام خطا به‌عنوان پارامتر، منطق مشترک را اجرا می‌کند. سپس متدهای اصلی به فراخوانی این متد با مقادیر مناسب تغییر یافتند. این کار باعث کاهش تکرار کد، بهبود خوانایی و افزایش قابلیت نگهداری شد.
 
 
+**افزودن افزونه Formatter به pom.xml**
+برای فرمت‌بندی کدهای پروژه، افزونه formatter-maven-plugin را به بخش <plugins> در فایل pom.xml پروژه اضافه کردیم.
+
+در ابتدا، نام گروه (groupId)، شناسه (artifactId) و نسخه (version) افزونه را مشخص کرده‌ایم:
+
+```
+<plugin>
+    <groupId>net.revelc.code.formatter</groupId>
+    <artifactId>formatter-maven-plugin</artifactId>
+    <version>2.15.0</version>
+    <configuration>
+        <encoding>UTF-8</encoding>
+        <directories>
+            <directory>${project.build.sourceDirectory}</directory>
+            <directory>${project.build.directory}/generated-sources</directory>
+        </directories>
+    </configuration>
+</plugin>
+
+```
+
+
+برای اعمال فرمت‌بندی کدها، از دستور زیر استفاده کردیم:
+
+
+
+```
+mvn formatter:format
+
+```
+
+
+![image](https://github.com/user-attachments/assets/f60d46dc-1d2f-4ad8-af6b-c904d8bdf776)
+
+
+![image](https://github.com/user-attachments/assets/08c9fb15-3d1a-43af-97da-58537bcc6da4)
+
 
 
 
