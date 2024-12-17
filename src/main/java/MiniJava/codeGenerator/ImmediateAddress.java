@@ -6,4 +6,3 @@ public class ImmediateAddress implements AddressType {
         return "#" + num;
     }
 }
-

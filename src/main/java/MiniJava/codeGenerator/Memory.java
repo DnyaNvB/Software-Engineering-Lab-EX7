@@ -84,7 +84,8 @@ class _3AddressCode {
     public Address Operand2;
     public Address Operand3;
 
-    public _3AddressCode() {}
+    public _3AddressCode() {
+    }
 
     public _3AddressCode(Operation op, Address opr1, Address opr2, Address opr3) {
         operation = op;

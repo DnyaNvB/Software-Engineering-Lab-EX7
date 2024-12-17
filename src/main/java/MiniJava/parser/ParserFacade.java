@@ -1,4 +1,5 @@
 package MiniJava.parser;
+
 import MiniJava.errorHandler.ErrorHandler;
 
 import java.util.Scanner;
