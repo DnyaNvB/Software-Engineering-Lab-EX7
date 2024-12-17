@@ -78,10 +78,11 @@ mvn formatter:format
 ```
 
 
-![image](https://github.com/user-attachments/assets/f60d46dc-1d2f-4ad8-af6b-c904d8bdf776)
+
+![image](https://github.com/user-attachments/assets/90805cc9-b9dd-4496-9934-f2e5ea66d3dc)
 
 
-![image](https://github.com/user-attachments/assets/08c9fb15-3d1a-43af-97da-58537bcc6da4)
+![image](https://github.com/user-attachments/assets/d440bfb9-1d64-4636-b5fe-83988d6882b6)
 
 
 
